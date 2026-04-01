@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<title>Payroll</title>
+<style>
+  .boxit, td { border-style: solid; border-width: 2px; }
+  .numberColumn { text-align:right; }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="row">
+    <div class="col text-center">
+      <br>
+      <form id="payrollForm">
+        Base Salary : <input id="basesalary" type="number" value="0"><br><br>
+        Deductions : <input id="deductions" type="number" value="0"><br><br>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<hr/>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+      <div id="results" class="text-center"></div>
+    </div>
+    <div class="col-md-4"></div>
+  </div>
+</div>
+
+<script>
+// --- Deduction Functions ---
+function getSSS(basesalary) {
+  if (basesalary < 3250) return 135;
+  else if (basesalary < 3749.99) return 157.5;
+  else if (basesalary < 4249.99) return 180;
+  else if (basesalary < 4749.99) return 202.5;
+  else if (basesalary < 5249.99) return 225;
+  else if (basesalary < 5749.99) return 247.5;
+  else if (basesalary < 6249.99) return 270;
+  else if (basesalary < 6749.99) return 292.5;
+  else if (basesalary < 7249.99) return 315;
+  else if (basesalary < 7749.99) return 337.5;
+  else if (basesalary < 8249.99) return 360;
+  else if (basesalary < 8749.99) return 382.5;
+  else if (basesalary < 9249.99) return 405;
+  else if (basesalary < 9749.99) return 427.5;
+  else if (basesalary < 10249.99) return 450;
+  else if (basesalary < 10749.99) return 472.5;
+  else if (basesalary < 11249.99) return 495;
+  else if (basesalary < 11749.99) return 517.5;
+  else if (basesalary < 12249.99) return 540;
+  else if (basesalary < 12749.99) return 562.5;
+  else if (basesalary < 13249.99) return 585;
+  else if (basesalary < 13749.99) return 607.5;
+  else if (basesalary < 14249.99) return 630;
+  else if (basesalary < 14749.99) return 652.5;
+  else if (basesalary < 15249.99) return 675;
+  else if (basesalary < 15749.99) return 697.5;
+  else if (basesalary < 16249.99) return 720;
+  else if (basesalary < 16749.99) return 742.5;
+  else if (basesalary < 17249.99) return 765;
+  else if (basesalary < 17749.99) return 787.5;
+  else if (basesalary < 18249.99) return 810;
+  else if (basesalary < 18749.99) return 832.5;
+  else if (basesalary < 19249.99) return 855;
+  else if (basesalary < 19749.99) return 877.5;
+  else if (basesalary < 20249.99) return 900;
+  else if (basesalary < 20749.99) return 922.5;
+  else if (basesalary < 21249.99) return 945;
+  else if (basesalary < 21749.99) return 967.5;
+  else if (basesalary < 22249.99) return 990;
+  else if (basesalary < 22749.99) return 1012.5;
+  else if (basesalary < 23249.99) return 1035;
+  else if (basesalary < 23749.99) return 1057.5;
+  else if (basesalary < 24249.99) return 1080;
+  else if (basesalary < 24749.99) return 1102.5;
+  else return 1125;
+}
+
+function getPhilhealth(basesalary) {
+  if (basesalary <= 10000) return 150;
+  else if (basesalary < 60000) return basesalary * 0.03 / 2;
+  else return 900;
+}
+
+function getPagibig(basesalary) {
+  if (basesalary <= 1500) return basesalary * 0.01;
+  else if (basesalary < 5000) return basesalary * 0.02;
+  else return 100;
+}
+
+function getTax(taxableIncome) {
+  const annualSalary = taxableIncome * 12;
+  if (annualSalary <= 250000) return 0;
+  else if (annualSalary <= 400000) return (annualSalary - 250000) * 0.2 / 12;
+  else if (annualSalary <= 800000) return 30000 / 12 + (annualSalary - 400000) * 0.25 / 12;
+  else if (annualSalary <= 2000000) return 130000 / 12 + (annualSalary - 800000) * 0.3 / 12;
+  else if (annualSalary <= 8000000) return 490000 / 12 + (annualSalary - 2000000) * 0.32 / 12;
+  else return 2410000 / 12 + (annualSalary - 8000000) * 0.35 / 12;
+}
+
+// --- Form Handler ---
+document.getElementById("payrollForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  let basesalary = parseFloat(document.getElementById("basesalary").value) || 0;
+  let deductions = parseFloat(document.getElementById("deductions").value) || 0;
+
+  basesalary = basesalary - deductions;
+
+  const sss = getSSS(basesalary);
+  const philhealth = getPhilhealth(basesalary);
+  const pagibig = getPagibig(basesalary);
+  const taxableIncome = basesalary - sss - philhealth - pagibig;
+  const tax = getTax(taxableIncome);
+  const takehome = basesalary - sss - philhealth - pagibig - tax;
+
+  const output = `
+    <table class="boxit" style="width:100%">
+      <tr><td><b>Basic</b></td><td class="numberColumn">${basesalary.toFixed(2)}</td></tr>
+      <tr><td><b>Deductions</b></td><td class="numberColumn">${deductions.toFixed(2)}</td></tr>
+      <tr><td><b>SSS</b></td><td class="numberColumn">${sss.toFixed(2)}</td></tr>
+      <tr><td><b>Philhealth</b></td><td class="numberColumn">${philhealth.toFixed(2)}</td></tr>
+      <tr><td><b>Pagibig</b></td><td class="numberColumn">${pagibig.toFixed(2)}</td></tr>
+      <tr><td><b>Tax</b></td><td class="numberColumn">${tax.toFixed(2)}</td></tr>
+      <tr><td><b>Takehome</b></td><td class="numberColumn">${takehome.toFixed(2)}</td></tr>
+    </table>
+  `;
+
+  document.getElementById("results").innerHTML = output;
+});
+</script>
+</body>
+</html>
