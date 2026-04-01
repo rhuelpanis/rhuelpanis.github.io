@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Support Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+    }
+    input {
+      margin: 5px;
+      padding: 5px;
+      width: 100px;
+    }
+    button {
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+    #result {
+      margin-top: 10px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Support Calculator</h1>
+  <label>Kita ng tatay: <input type="number" id="tatay"></label><br>
+  <label>Kita ng nanay: <input type="number" id="nanay"></label><br>
+  <br/>
+  <label>Rent: <input type="number" id="rent"></label><br>
+  <label>Utilities: <input type="number" id="utils"></label><br>
+  <label>Grocery: <input type="number" id="grocery"></label><br>
+  <label>School: <input type="number" id="school"></label><br>
+  <label>Misc: <input type="number" id="misc"></label><br>
+  <button onclick="calculateSupport()">Magkano?</button>
+
+  <br/><br/>
+  <div id="tatayResult"></div>
+  <br/>
+  <div id="nanayResult"></div>
+
+  <table border="1" cellpadding="10" cellspacing="1">
+    <tr>
+        <td>
+            gastusin
+        </td>
+        <td>
+            tatay
+        </td>
+        <td>
+            nanay
+        </td>
+    </tr>
+    <tr>
+        <td>
+            rent
+        </td>
+        <td>
+            <p id="tatayrent"></p>
+        </td>
+        <td>
+            <p id="nanayrent"></p>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            utils
+        </td>
+        <td>
+            <p id="tatayutils"></p>
+        </td>
+        <td>
+            <p id="nanayutils"></p>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            grocery
+        </td>
+        <td>
+            <p id="tataygrocery"></p>
+        </td>
+        <td>
+            <p id="nanaygrocery"></p>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            school
+        </td>
+        <td>
+            <p id="tatayschool"></p>
+        </td>
+        <td>
+            <p id="nanayschool"></p>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            misc
+        </td>
+        <td>
+            <p id="tataymisc"></p>
+        </td>
+        <td>
+            <p id="nanaymisc"></p>
+        </td>
+    </tr>
+  </table>
+
+  <script>
+    function calculateSupport() {
+      
+      const tatay = parseFloat(document.getElementById('tatay').value) || 0;
+      const nanay = parseFloat(document.getElementById('nanay').value) || 0;
+      const rent = parseFloat(document.getElementById('rent').value) || 0;
+      const utils = parseFloat(document.getElementById('utils').value) || 0;
+      const grocery = parseFloat(document.getElementById('grocery').value) || 0;
+      const school = parseFloat(document.getElementById('school').value) || 0;
+      const misc = parseFloat(document.getElementById('misc').value) || 0;
+
+      
+      const tatayPercent = tatay / (tatay + nanay);
+      const nanayPercent = nanay / (tatay + nanay);
+      const tatayrent = (rent * tatayPercent).toFixed(2);
+      const nanayrent = (rent * nanayPercent).toFixed(2);
+      const tatayutils = (utils * tatayPercent).toFixed(2);
+      const nanayutils = (utils * nanayPercent).toFixed(2);
+      const tataygrocery = (grocery * tatayPercent).toFixed(2);
+      const nanaygrocery = (grocery * nanayPercent).toFixed(2);
+      const tatayschool = (school * tatayPercent).toFixed(2);
+      const nanayschool = (school * nanayPercent).toFixed(2);
+      const tataymisc = (misc * tatayPercent).toFixed(2);
+      const nanaymisc = (misc * nanayPercent).toFixed(2);
+
+      
+      document.getElementById('tatayrent').textContent = tatayrent;
+      document.getElementById('nanayrent').textContent = nanayrent;
+      document.getElementById('tatayutils').textContent = tatayutils;
+      document.getElementById('nanayutils').textContent = nanayutils;
+      document.getElementById('tataygrocery').textContent = tataygrocery;
+      document.getElementById('nanaygrocery').textContent = nanaygrocery;
+      document.getElementById('tatayschool').textContent = tatayschool;
+      document.getElementById('nanayschool').textContent = nanayschool;
+      document.getElementById('tataymisc').textContent = tataymisc;
+      document.getElementById('nanaymisc').textContent = nanaymisc;
+    }
+  </script>
+</body>
+</html>
