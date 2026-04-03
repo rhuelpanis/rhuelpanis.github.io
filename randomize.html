@@ -13,46 +13,62 @@
 		<div class='col-md-6'>
 				<br><br>
 				<form id="entryForm">
-				<input type="text" id="entry" name="num1"><br><br>
+				    <input type="text" id="entry" name="num1" required><br><br>
 				</form>
-
-				 <input type="button" onclick="add()" value="Add">
-				 <input type="button" onclick="rand()" value="Random">
-				  <br>
-				  <br>
-				  <p id="listahan"> </p>
+                
+                <input type="button" onclick="add()" value="Add">
+                <input type="button" onclick="rand()" value="Random">
+                <br>
+                <br>
+                <p id="listahan"> </p>
+                <input type="button" onclick="cleanup()" value="Reset List">
 		</div>		  
 		<div class='col-md-3'></div>		  
 	</div>
 </div>
 <script>
-var entries=[];
+    var entries=[];
 
-function add() { 
-	entries.push(document.getElementById("entry").value); 
-	let newEntry = document.getElementById("entry").value;
-	refreshList();
-	resetForm();
-}
+    function add() { 
+        if (!document.getElementById("entry").value.trim()=="") {
+            entries.push(document.getElementById("entry").value.trim()); 
+            refreshList();
+            resetForm();
+        } else {
+            alert("please put something");
+        }
+        
+    }
 
-function rand() {
-	var randEntry = entries[Math.floor(Math.random()*entries.length)];
-	window.alert(randEntry);
-	refreshList();
-}
+    function rand() {
+        if (entries.length!==0){
+            var randEntry = entries[Math.floor(Math.random()*entries.length)];
+            window.alert(randEntry);
+            refreshList();
+        } else {
+            alert("please add something to the list");
+        }
+    }
 
-function refreshList() {
-	let list=""
-	for (let number = 0; number < entries.length; number++) {
-		let numberPlusOne = number + 1;
-		list += numberPlusOne + ". " + entries[number] + "<br>";
-	}
-	document.getElementById("listahan").innerHTML = list;
-}
+    function cleanup() {
+        if (confirm("Sure you wanna cleanup?")==true){
+            entries.splice(0, entries.length);
+            refreshList();
+        }
+    }
 
-function resetForm() {
-  document.getElementById("entryForm").reset();
-}
+    function refreshList() {
+        let list=""
+        for (let number = 0; number < entries.length; number++) {
+            let numberPlusOne = number + 1;
+            list += numberPlusOne + ". " + entries[number] + "<br>";
+        }
+        document.getElementById("listahan").innerHTML = list;
+    }
+
+    function resetForm() {
+        document.getElementById("entryForm").reset();
+    }
 
 </script>
 
