@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiplication</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body>
+    <div class="p-4">
+        <table class="table-auto">
+            <tr class="bg-gray-200">
+                
+            </tr>
+            <tr>
+                <td class="border-0 border-l border-t border-b px-4 py-2">
+                    <p class="text-center text-3xl" id="multiplicand"></p>
+                </td>
+                <td class="border-0 border-t border-b">
+                    x
+                </td>
+                <td class="border-0 border-t border-b px-4 py-2">
+                    <p class="text-center text-3xl" id="multiplier"></p>
+                </td>
+                <td class="border-0 border-t border-b px-4 py-2">
+                    =
+                </td>
+                <td class="border-0 border-t border-b px-4 py-2">
+                    <div id="product" class="text-center text-3xl"><input type="number" class="border px-2 py-1 w-16"></div>
+                </td>
+                <td class="border-0 border-t border-b border-r px-4 py-2">
+                    <button onclick="submit()" class="bg-blue-500 text-white px-4 py-2 rounded">Submit</button>
+                </td>
+            </tr>
+        </table>
+        
+        <br/>
+        <br/>
+        <br/>
+        Scoreboard:
+        <table class="table-auto border-collapse border border-gray-300">
+            <tr class="bg-gray-200">
+                <th class="border border-gray-300 px-4 py-2">Correct</th>
+                <th class="border border-gray-300 px-4 py-2">Incorrect</th>
+            </tr>
+            <tr>
+                <td id="correct" class="border border-gray-300 px-4 py-2">0</td>
+                <td id="incorrect" class="border border-gray-300 px-4 py-2">0</td>
+            </tr>
+        </table>
+    </div>
+    
+    <script>
+        function generateQuestion() {
+            document.getElementById('multiplicand').textContent = Math.floor(Math.random() * 11) + 2;
+            document.getElementById('multiplier').textContent = Math.floor(Math.random() * 11) + 2;
+            document.getElementById('product').querySelector('input').value = '';
+        }
+        generateQuestion();
+        function submit() {
+            if (isProductCorrect()) {
+                // alert('Correct!');
+                document.getElementById('correct').textContent = parseInt(document.getElementById('correct').textContent) + 1;
+                generateQuestion();
+            } else {
+                // alert('Incorrect. Try again.');
+                document.getElementById('incorrect').textContent = parseInt(document.getElementById('incorrect').textContent) + 1;
+            }
+        }
+
+        function isProductCorrect() {
+            const multiplicand = parseInt(document.getElementById('multiplicand').textContent);
+            const multiplier = parseInt(document.getElementById('multiplier').textContent);
+            const product = parseInt(document.getElementById('product').querySelector('input').value);
+            return product === multiplicand * multiplier;
+        }
+    </script>
+</body>
+</html>
