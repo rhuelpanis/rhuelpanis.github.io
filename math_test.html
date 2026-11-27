@@ -139,8 +139,8 @@
                 // alert('Correct!');
                 document.getElementById('multiCorrect').textContent = parseInt(document.getElementById('multiCorrect').textContent) + 1;
                 generateQuestionMulti();
-                if (parseInt(document.getElementById('multiCorrect').textContent - document.getElementById('multiIncorrect').textContent) >= 1) {
-                    alert("You have reached 30 correct answers! Let's proceed to division!");
+                if (parseInt(document.getElementById('multiCorrect').textContent - document.getElementById('multiIncorrect').textContent) >= 30) {
+                    alert("You have reached 30 net correct answers! Let's proceed to division!");
                     document.getElementById('division').style.display = 'block';
                     document.getElementById('multiplication').style.display = 'none';
                     document.getElementById('table').style.display = 'none';
@@ -185,8 +185,8 @@
                 // alert('Correct!');
                 document.getElementById('divCorrect').textContent = parseInt(document.getElementById('divCorrect').textContent) + 1;
                 generateQuestionDivi();
-                if (parseInt(document.getElementById('divCorrect').textContent - document.getElementById('divIncorrect').textContent) >= 1) {
-                    alert("You have reached 30 correct answers! Let's proceed to multiplication table!");
+                if (parseInt(document.getElementById('divCorrect').textContent - document.getElementById('divIncorrect').textContent) >= 30) {
+                    alert("You have reached 30 net correct answers! Let's proceed to multiplication table!");
                     document.getElementById('division').style.display = 'none';
                     document.getElementById('multiplication').style.display = 'none';
                     document.getElementById('table').style.display = 'block';
