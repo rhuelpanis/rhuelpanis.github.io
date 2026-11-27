@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Math Test</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body>
+    <div class="p-4" id="multiplication">
+        <table class="table-auto">
+            <tr class="bg-gray-200">
+                
+            </tr>
+            <tr>
+                <td class="border-0 border-l border-t border-b px-4 py-2">
+                    <p class="text-center text-3xl" id="multiplicand"></p>
+                </td>
+                <td class="border-0 border-t border-b">
+                    x
+                </td>
+                <td class="border-0 border-t border-b px-4 py-2">
+                    <p class="text-center text-3xl" id="multiplier"></p>
+                </td>
+                <td class="border-0 border-t border-b px-4 py-2">
+                    =
+                </td>
+                <td class="border-0 border-t border-b px-4 py-2">
+                    <div id="product" class="text-center text-3xl"><input type="number" class="border px-2 py-1 w-24"></div>
+                </td>
+                <td class="border-0 border-t border-b border-r px-4 py-2">
+                    <button onclick="submitMulti()" class="bg-blue-500 text-white px-4 py-2 rounded">Submit</button>
+                </td>
+            </tr>
+        </table>
+        
+        <br/>
+        <br/>
+        <br/>
+        Scoreboard:
+        <table class="table-auto border-collapse border border-gray-300">
+            <tr class="bg-gray-200">
+                <th class="border border-gray-300 px-4 py-2">Correct</th>
+                <th class="border border-gray-300 px-4 py-2">Incorrect</th>
+            </tr>
+            <tr>
+                <td id="multiCorrect" class="border border-gray-300 px-4 py-2">0</td>
+                <td id="multiIncorrect" class="border border-gray-300 px-4 py-2">0</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="p-4" id="division" style="display: none;">
+        <table class="table-auto">
+            <tr class="bg-gray-200">
+                
+            </tr>
+            <tr>
+                <td class="border-0 border-l border-t border-b px-4 py-2">
+                    <p class="text-center text-3xl" id="dividend"></p>
+                </td>
+                <td class="border-0 border-t border-b">
+                    ÷
+                </td>
+                <td class="border-0 border-t border-b px-4 py-2">
+                    <p class="text-center text-3xl" id="divisor"></p>
+                </td>
+                <td class="border-0 border-t border-b px-4 py-2">
+                    =
+                </td>
+                <td class="border-0 border-t border-b px-4 py-2">
+                    <div id="input" class="text-center text-3xl"><input type="number" class="border px-2 py-1 w-24"></div>
+                </td>
+                <td class="border-0 border-t border-b border-r px-4 py-2">
+                    <button onclick="submitDiv()" class="bg-blue-500 text-white px-4 py-2 rounded">Submit</button>
+                </td>
+            </tr>
+        </table>
+        
+        <br/>
+        <br/>
+        <br/>
+        Scoreboard:
+        <table class="table-auto border-collapse border border-gray-300">
+            <tr class="bg-gray-200">
+                <th class="border border-gray-300 px-4 py-2">Correct</th>
+                <th class="border border-gray-300 px-4 py-2">Incorrect</th>
+            </tr>
+            <tr>
+                <td id="divCorrect" class="border border-gray-300 px-4 py-2">0</td>
+                <td id="divIncorrect" class="border border-gray-300 px-4 py-2">0</td>
+            </tr>
+        </table>
+    </div>
+
+     <div class="p-4 max-w-fit" id="table" style="display: none;">
+        <table class="table-auto">
+            <thead >
+                <tr>
+                    <th></th>
+                    <script>
+                        for (let i = 1; i <= 12; i++) {
+                            document.write(`<th class="border px-4 py-2">${i}</th>`);
+                        }
+                    </script>
+                </tr>
+            </thead>
+            <tbody>
+                <script>
+                    for (let i = 1; i <= 12; i++) {
+                        document.write('<tr>');
+                        document.write(`<td class="border px-4 py-2">${i}</td>`);
+
+                        for (let j = 1; j <= 12; j++) {
+                            // document.write(`<td class="border px-4 py-2">${i * j}</td>`);
+                            let answer = i * j;
+                            document.write(`<td class="border px-4 py-2"><input type="number" class="w-full" value="" onChange="this.value==${answer}?this.style.backgroundColor='lightgreen':this.style.backgroundColor='lightcoral'"></td>`);
+                        }
+                        document.write('</tr>');
+                    }
+                </script>
+                
+            </tbody>
+        </table>
+        
+        <br/>
+        
+    </div>
+    
+    <script>
+        function generateQuestionMulti() {
+            document.getElementById('multiplicand').textContent = Math.floor(Math.random() * 11) + 2;
+            document.getElementById('multiplier').textContent = Math.floor(Math.random() * 11) + 2;
+            document.getElementById('product').querySelector('input').value = '';
+        }
+        generateQuestionMulti();
+        function submitMulti() {
+            if (isProductCorrect()) {
+                // alert('Correct!');
+                document.getElementById('multiCorrect').textContent = parseInt(document.getElementById('multiCorrect').textContent) + 1;
+                generateQuestionMulti();
+                if (parseInt(document.getElementById('multiCorrect').textContent - document.getElementById('multiIncorrect').textContent) >= 1) {
+                    alert("You have reached 30 correct answers! Let's proceed to division!");
+                    document.getElementById('division').style.display = 'block';
+                    document.getElementById('multiplication').style.display = 'none';
+                    document.getElementById('table').style.display = 'none';
+                    
+                }
+            } else {
+                // alert('Incorrect. Try again.');
+                document.getElementById('multiIncorrect').textContent = parseInt(document.getElementById('multiIncorrect').textContent) + 1;
+            }
+        }
+
+        function isProductCorrect() {
+            const multiplicand = parseInt(document.getElementById('multiplicand').textContent);
+            const multiplier = parseInt(document.getElementById('multiplier').textContent);
+            const product = parseInt(document.getElementById('product').querySelector('input').value);
+            return product === multiplicand * multiplier;
+        }
+
+
+        function generateQuestionDivi() {
+
+            window.given_divisor = Math.floor(Math.random() * 11) + 2;
+            window.given_quotient = Math.floor(Math.random() * 11) + 2;
+            window.given_dividend = given_divisor * given_quotient;
+
+            document.getElementById('dividend').textContent = given_dividend;
+            document.getElementById('divisor').textContent = given_divisor;
+            document.getElementById('input').querySelector('input').value = '';
+            // document.getElementById('input').querySelector('input').value = '';
+        }
+        generateQuestionDivi();
+        
+
+        function isQuotientCorrect() {
+            const dividend = parseInt(document.getElementById('dividend').textContent);
+            const divisor = parseInt(document.getElementById('divisor').textContent);
+            const input_quotient = parseInt(document.getElementById('input').querySelector('input').value);
+            return input_quotient === given_quotient;
+        }
+        function submitDiv() {
+            if (isQuotientCorrect()) {
+                // alert('Correct!');
+                document.getElementById('divCorrect').textContent = parseInt(document.getElementById('divCorrect').textContent) + 1;
+                generateQuestionDivi();
+                if (parseInt(document.getElementById('divCorrect').textContent - document.getElementById('divIncorrect').textContent) >= 1) {
+                    alert("You have reached 30 correct answers! Let's proceed to multiplication table!");
+                    document.getElementById('division').style.display = 'none';
+                    document.getElementById('multiplication').style.display = 'none';
+                    document.getElementById('table').style.display = 'block';
+                    
+                }
+            } else {
+                // alert('Incorrect. Try again.');
+                document.getElementById('divIncorrect').textContent = parseInt(document.getElementById('divIncorrect').textContent) + 1;
+            }
+        }
+
+        
+    </script>
+</body>
+</html>
