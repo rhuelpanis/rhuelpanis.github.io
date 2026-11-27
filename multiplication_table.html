@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiplication</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body>
+    <div class="p-4 max-w-fit">
+        <table class="table-auto">
+            <thead >
+                <tr>
+                    <th></th>
+                    <script>
+                        for (let i = 1; i <= 12; i++) {
+                            document.write(`<th class="border px-4 py-2">${i}</th>`);
+                        }
+                    </script>
+                </tr>
+            </thead>
+            <tbody>
+                <script>
+                    for (let i = 1; i <= 12; i++) {
+                        document.write('<tr>');
+                        document.write(`<td class="border px-4 py-2">${i}</td>`);
+
+                        for (let j = 1; j <= 12; j++) {
+                            // document.write(`<td class="border px-4 py-2">${i * j}</td>`);
+                            let answer = i * j;
+                            document.write(`<td class="border px-4 py-2"><input type="number" class="w-full" value="" onChange="this.value==${answer}?this.style.backgroundColor='lightgreen':this.style.backgroundColor='lightcoral'"></td>`);
+                        }
+                        document.write('</tr>');
+                    }
+                </script>
+                
+            </tbody>
+        </table>
+        
+        <br/>
+        
+    </div>
+    
+    <script>
+        
+    </script>
+</body>
+</html>
