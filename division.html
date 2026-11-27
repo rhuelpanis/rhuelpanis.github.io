@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Division</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body>
+    <div class="p-4">
+        <table class="table-auto">
+            <tr class="bg-gray-200">
+                
+            </tr>
+            <tr>
+                <td class="border-0 border-l border-t border-b px-4 py-2">
+                    <p class="text-center text-3xl" id="dividend"></p>
+                </td>
+                <td class="border-0 border-t border-b">
+                    ÷
+                </td>
+                <td class="border-0 border-t border-b px-4 py-2">
+                    <p class="text-center text-3xl" id="divisor"></p>
+                </td>
+                <td class="border-0 border-t border-b px-4 py-2">
+                    =
+                </td>
+                <td class="border-0 border-t border-b px-4 py-2">
+                    <div id="input" class="text-center text-3xl"><input type="input" class="border px-2 py-1 w-16"></div>
+                </td>
+                <td class="border-0 border-t border-b border-r px-4 py-2">
+                    <button onclick="submit()" class="bg-blue-500 text-white px-4 py-2 rounded">Submit</button>
+                </td>
+            </tr>
+        </table>
+        
+        <br/>
+        <br/>
+        <br/>
+        Scoreboard:
+        <table class="table-auto border-collapse border border-gray-300">
+            <tr class="bg-gray-200">
+                <th class="border border-gray-300 px-4 py-2">Correct</th>
+                <th class="border border-gray-300 px-4 py-2">Incorrect</th>
+            </tr>
+            <tr>
+                <td id="correct" class="border border-gray-300 px-4 py-2">0</td>
+                <td id="incorrect" class="border border-gray-300 px-4 py-2">0</td>
+            </tr>
+        </table>
+    </div>
+    
+    <script>
+        function generateQuestion() {
+
+            window.given_divisor = Math.floor(Math.random() * 11) + 2;
+            window.given_quotient = Math.floor(Math.random() * 11) + 2;
+            window.given_dividend = given_divisor * given_quotient;
+
+            document.getElementById('dividend').textContent = given_dividend;
+            document.getElementById('divisor').textContent = given_divisor;
+            document.getElementById('input').querySelector('input').value = '';
+            // document.getElementById('input').querySelector('input').value = '';
+        }
+        generateQuestion();
+        function submit() {
+            if (isQuotientCorrect()) {
+                // alert('Correct!');
+                document.getElementById('correct').textContent = parseInt(document.getElementById('correct').textContent) + 1;
+                generateQuestion();
+            } else {
+                // alert('Incorrect. Try again.');
+                document.getElementById('incorrect').textContent = parseInt(document.getElementById('incorrect').textContent) + 1;
+            }
+        }
+
+        function isQuotientCorrect() {
+            const dividend = parseInt(document.getElementById('dividend').textContent);
+            const divisor = parseInt(document.getElementById('divisor').textContent);
+            const input_quotient = parseInt(document.getElementById('input').querySelector('input').value);
+            return input_quotient === given_quotient;
+        }
+    </script>
+</body>
+</html>
